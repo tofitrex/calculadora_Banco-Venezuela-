@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Pedro Jose Guerra - Banco de Venezuela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            margin: 0;
+        }
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            border: 2px solid red;
+        }
+        h1, h2 {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: red;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid red;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            text-align: center;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculadora de Pedro Jose Guerra</h1>
+        <h2>Banco de Venezuela</h2>
+        
+        <label for="principal">Capital inicial (P):</label>
+        <input type="number" id="principal" placeholder="Ingresa el capital inicial" required>
+
+        <label for="rate">Tasa de interés (%) anual:</label>
+        <input type="number" id="rate" placeholder="Ingresa la tasa de interés" required>
+
+        <label for="time">Tiempo (años):</label>
+        <input type="number" id="time" placeholder="Ingresa el tiempo en años" required>
+
+        <label for="type">Tipo de interés:</label>
+        <select id="type">
+            <option value="simple">Interés Simple</option>
+            <option value="compuesto">Interés Compuesto</option>
+        </select>
+
+        <button onclick="calcularInteres()">Calcular</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calcularInteres() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+            const time = parseFloat(document.getElementById('time').value);
+            const type = document.getElementById('type').value;
+            let result;
+
+            if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+                result = "Por favor, ingresa valores válidos en todos los campos.";
+            } else {
+                if (type === "simple") {
+                    // Cálculo de interés simple
+                    const simpleInterest = (principal * rate * time) / 100;
+                    result = `Interés Simple: ${simpleInterest.toFixed(2)}`;
+                } else {
+                    // Cálculo de interés compuesto
+                    const compoundInterest = principal * Math.pow((1 + rate / 100), time) - principal;
+                    result = `Interés Compuesto: ${compoundInterest.toFixed(2)}`;
+                }
+            }
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
